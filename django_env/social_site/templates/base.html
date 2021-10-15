@@ -22,27 +22,48 @@
                 <input class="form-control me-2" type="search" placeholder="Cosa stai cercando?" aria-label="Search">
                 <button class="btn btn-outline-info" type="submit">Cerca</button>
               </form>
-            <ul class="navbar-nav ms-auto">
+              <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Lista utenti</a>
+                <a class="nav-link" href=""
+                  >Lista Utenti <span class="sr-only">(current)</span></a
+                >
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Registrazione</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-              </li>
+              {% if request.user.is_authenticated %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Menu
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{ request.user.username }}
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a
+                    class="dropdown-item"
+                    href=""
+                    >Profilo</a
+                  >
+                  <a class="dropdown-item" href="{% url 'password_change' %}"
+                    >Aggiorna Password</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Esci</a>
+                </div>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'registration_view' %}"
+                  >Registrazione</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              {% endif %}
             </ul>
           </div>
         </div>
