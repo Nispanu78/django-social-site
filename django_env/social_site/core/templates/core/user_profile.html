@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} | {{ user }}{% endblock head_title %}
+
+{% block content %}
+
+<h4>{% if request.user == user %}Il Tuo {% endif %}Profilo Utente</h4>
+
+<h1>User: {{ user }}</h1>
+
+{% endblock content %}
