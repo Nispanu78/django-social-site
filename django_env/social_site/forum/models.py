@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -14,6 +15,9 @@ class Sezione(models.Model):
 
     def __str__(self):
         return self.nome_sezione
+
+    def get_absolute_url(self):
+        return reverse("sezione_view", kwargs={"pk": self.pk})
 
     class Meta:
         verbose_name = "Sezione"

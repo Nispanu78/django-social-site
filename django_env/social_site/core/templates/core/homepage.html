@@ -2,6 +2,11 @@
 
 {% block content %}
 
-<h1>Home</h1>
+{% for sezione in lista_sezioni %}
+    <h5><a href="{{ sezione.get_absolute_url }}"><strong>{{ sezione.nome_sezione }}</strong></a></h5>
+    <p>{{ sezione.descrizione }}</p>
+    <img src="{{ sezione.logo_sezione.url }}" alt="logo della sezione">
+    <hr>
+{% endfor %}
 
 {% endblock content %}
