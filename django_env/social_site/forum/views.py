@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 from .forms import DiscussioneModelForm
 
-from .models import Post, Sezione
+from .models import Discussione, Post, Sezione
 from .mixins import StaffMixing
 
 
@@ -39,3 +39,9 @@ def crea_discussione(request, pk):
         form = DiscussioneModelForm()
     context = {'form': form, "sezione": sezione}
     return render(request, "forum/crea-discussione.html", context)
+
+def visualizza_discussione(request, pk):
+    discussione = get_object_or_404(Discussione, pk=pk)
+    posts_discussione = Post.objects.filter(discussione=discussione)
+    context = {'discussione': discussione, 'posts_discussione': posts_discussione}
+    return render(request, "forum/singola_discussione", context)
