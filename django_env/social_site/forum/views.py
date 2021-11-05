@@ -44,4 +44,4 @@ def visualizza_discussione(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     posts_discussione = Post.objects.filter(discussione=discussione)
     context = {'discussione': discussione, 'posts_discussione': posts_discussione}
-    return render(request, "forum/singola_discussione", context)
+    return render(request, "forum/singola_discussione.html", context)

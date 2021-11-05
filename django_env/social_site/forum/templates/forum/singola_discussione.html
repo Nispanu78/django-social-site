@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - {{ discussione.titolo }}{% endblock head_title %}
+
+{% block content %}
+
+    {% for post in discussione %}
+
+        <h1>{{ discussione.titolo }}</h1>
+        <h2>{{ discussione.data_creazione }}</h2>
+        <h3>In: {{ discussione.sezione_appartenenza }}</h3>
+        
+        <div class="card my-3">
+            <div class="card-header">
+                <h3> {{ post.autore_post }} </h3>
+                <h3> {{ post.contenuto }} </h3>
+                <h3> {{ post.data_creazione }} </h3>
+                <!-- <h6 class="card-text"> {{ sezione.descrizione }} </h6> -->
+            </div>
+
+        </div>
+
+    {% endfor %}
+{% endblock content %}
