@@ -3,10 +3,18 @@
 {% block head_title %}{{ block.super }} - {{ sezione.nome_sezione }}{% endblock head_title %}
 
 {% block content %}
+
 <div class="card my-3">
     <div class="card-header">
         <h3> {{ sezione.nome_sezione }} </h3>
         <h6 class="card-text"> {{ sezione.descrizione }} </h6>
+    </div>
+
+    <div class="card-body">
+        {% for discussione in discussioni %}
+            <p><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></p>
+            <p>{{ discussione.autore_discussione }}</p>
+        {% endfor%}
     </div>
 
 </div>

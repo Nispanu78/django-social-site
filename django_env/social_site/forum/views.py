@@ -17,7 +17,10 @@ class CreaSezione(StaffMixing, CreateView):
 
 def visualizza_sezione(request, pk):
     sezione = get_object_or_404(Sezione, pk=pk)
-    context = {"sezione": sezione}
+    discussioni_sezione = Discussione.objects.filter(
+        sezione_appartenenza=sezione
+    ).order_by("-data_creazione")
+    context = {"sezione": sezione, "discussioni": discussioni_sezione}
     return render(request, "forum/singola_sezione.html", context)
 
 @login_required
@@ -34,7 +37,7 @@ def crea_discussione(request, pk):
                         discussione=discussione,
                         autore_post = request.user,
                         contenuto = form.cleaned_data["contenuto"])
-            return HttpResponseRedirect("/admin")
+            return HttpResponseRedirect(discussione.get_absolute_url())
     else:
         form = DiscussioneModelForm()
     context = {'form': form, "sezione": sezione}
