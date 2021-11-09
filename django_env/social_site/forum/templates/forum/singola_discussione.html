@@ -8,23 +8,25 @@
     {% for post in posts_discussione %}
     <div class="card my-3">
         {% if forloop.first %}
-        <div class="card-header">
+        <div class="card-header pb-0">
             <h3>{{ discussione.titolo }}</h3>
-            <p class="text-muted">{{ discussione.data_creazione|date:"D M Y" }}
+            <p class="text-muted">{{ discussione.data_creazione|date:"D d M Y" }}
             <br>In: {{ discussione.sezione_appartenenza }}</p>
         </div>
-        {% endif %}
-    </div>
-
-        <div class="card my-3">
-            <div class="card-header">
-                <h3> {{ post.autore_post }} </h3>
-                <h3> {{ post.contenuto }} </h3>
-                <h3> {{ post.data_creazione }} </h3>
-                <!-- <h6 class="card-text"> {{ sezione.descrizione }} </h6> -->
-            </div>
+        {% else %}
+        <div class="card-header py-0">
+            <p class="text-muted mb-0">{{ post.data_creazione|date:"d M Y" }}</p>
         </div>
+        {% endif %}
 
+
+        <div class="card-header">
+            <h3> {{ post.autore_post }} </h3>
+            <h3></h3>
+            <h3> {{ post.contenuto }} </h3>
+            <!-- <h6 class="card-text"> {{ sezione.descrizione }} </h6> -->
+        </div>
+    </div>
     {% endfor %}
 
     {% if request.user.is_authenticated %}
