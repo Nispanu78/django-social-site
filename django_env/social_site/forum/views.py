@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 
-from .forms import DiscussioneModelForm
+from .forms import DiscussioneModelForm, PostModelForm
 
 from .models import Discussione, Post, Sezione
 from .mixins import StaffMixing
@@ -46,5 +47,20 @@ def crea_discussione(request, pk):
 def visualizza_discussione(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     posts_discussione = Post.objects.filter(discussione=discussione)
-    context = {'discussione': discussione, 'posts_discussione': posts_discussione}
+    form_risposta = PostModelForm()
+    context = {'discussione': discussione, 'posts_discussione': posts_discussione, "form_risposta": form_risposta}
     return render(request, "forum/singola_discussione.html", context)
+
+def aggiungi_risposta(request, pk):
+    discussione = get_object_or_404(Discussione, pk=pk)
+    if request.method == 'POST':
+        form = PostModelForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.discussione = discussione
+            form.instance.autore_post = request.user
+            form.save()
+            url_discussione = reverse("visualizza_discusssione", kwargs={"pk":pk})
+
+    else:
+        return HttpResponseBadRequest
