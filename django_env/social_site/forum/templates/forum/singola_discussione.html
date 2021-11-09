@@ -20,10 +20,20 @@
         {% endif %}
 
 
-        <div class="card-header">
-            <h3> {{ post.autore_post }} </h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-2 col-4">
+                    <p class="mb-0"><a href="{% url 'user_profile' username=post.autore_post.username %}"><strong>{{ post.autore_post }}</strong></a></p>
+                    <p class="text-muted mb-0">Utente da: {{ post.autore_post.date_joined|date:"M Y" }}</p>
+                    <p class="text-muted">Posts: {{ post.autore_post.posts.count }}</p>
+                </div>
+                <div class="col-xl-10 col-8">
+                    <p class="my-0">{{ post.contenuto|linebreaks }}</p>
+                </div>
+            </div>
             <h3></h3>
-            <h3> {{ post.contenuto }} </h3>
+            <h3></h3>
+            <h3></h3>
             <!-- <h6 class="card-text"> {{ sezione.descrizione }} </h6> -->
         </div>
     </div>
