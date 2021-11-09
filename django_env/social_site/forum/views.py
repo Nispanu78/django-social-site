@@ -60,7 +60,8 @@ def aggiungi_risposta(request, pk):
             form.instance.discussione = discussione
             form.instance.autore_post = request.user
             form.save()
-            url_discussione = reverse("visualizza_discusssione", kwargs={"pk":pk})
+            url_discussione = reverse("visualizza_discussione", kwargs={"pk":pk})
+            return HttpResponseRedirect(url_discussione)
 
     else:
         return HttpResponseBadRequest
