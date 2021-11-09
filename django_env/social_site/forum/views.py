@@ -51,6 +51,7 @@ def visualizza_discussione(request, pk):
     context = {'discussione': discussione, 'posts_discussione': posts_discussione, "form_risposta": form_risposta}
     return render(request, "forum/singola_discussione.html", context)
 
+@login_required
 def aggiungi_risposta(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     if request.method == 'POST':

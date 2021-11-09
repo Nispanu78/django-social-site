@@ -11,7 +11,7 @@ class DiscussioneModelForm(forms.ModelForm):
     class Meta:
         model = Discussione
         fields = ["titolo", "contenuto"]
-        widget = {"titolo": forms.TextInput(attrs={"placeholder": "Titolo della Discussione"})}
+        widgets = {"titolo": forms.TextInput(attrs={"placeholder": "Titolo della Discussione"})}
 
 
 class PostModelForm(forms.ModelForm):
@@ -19,3 +19,7 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["contenuto"]
+        widgets = {
+            "contenuto": forms.Textarea(attrs={'rows': '5'})
+        }
+        labels = {"contenuto": "Messaggio"}
