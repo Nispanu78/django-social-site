@@ -11,6 +11,7 @@
     </div>
 
     <div class="card-body">
+        <a class="btn btn-sm btn-info" href="{% url 'crea_discussione' pk=sezione.pk %}">Crea Discussione</a>
         {% for discussione in discussioni %}
             <p><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></p>
             <p>{{ discussione.autore_discussione }}</p>
