@@ -19,11 +19,28 @@
             <div class="row">
                 <div class="col-lg-3">
                     <img src="{{ sezione.logo_sezione.url }}" style="max-width: 100%">
-                    <p>Discussioni Totali: {{ sezione.discussione_set.count }}</p>
+                    <p>Discussioni Totali: {{ sezione.discussione_set.count }}
+                    <br>Messaggi Totali: {{ sezione.get_number_of_posts_in_section }}</p>
                 </div>
                 <div class="col-lg-9">
                     <p>Ultime discussioni</p>
-
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for discussione in sezione.get_last_discussions.all %}
+                                <tr class="row">
+                                    <td class="col-lg-7 col-6">
+                                        <a href="{% url 'visualizza_discussione' pk=discussione.pk %}">{{ discussione.titolo }}</a>
+                                    </td>
+                                    <td class="col-lg-3 col-3">
+                                        <a href="{% url 'user_profile' username=discussione.autore_discussione.username %}">{{ discussione.autore_discussione }}</a>
+                                    </td>
+                                    <td class="col-lg-2 col-3">
+                                        posts: {{ discussione.post_set.count}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
