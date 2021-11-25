@@ -2,11 +2,33 @@
 
 {% block content %}
 
+{% if request.user.is_staff %}
+    <div class="card-body p-0">
+        <br>
+        <a class="btn btn-sm btn-danger" href="{% url 'crea_sezione' %}">Crea Sezione</a>
+    </div>
+{% endif %}
+<br>
 {% for sezione in lista_sezioni %}
-    <h5><a href="{{ sezione.get_absolute_url }}"><strong>{{ sezione.nome_sezione }}</strong></a></h5>
-    <p>{{ sezione.descrizione }}</p>
-    <img src="{{ sezione.logo_sezione.url }}" alt="logo della sezione">
-    <hr>
+    <div class="card-my-3">
+        <div class="card-header">
+            <h5><a href="{{ sezione.get_absolute_url }}"><strong>{{ sezione.nome_sezione }}</strong></a></h5>
+            <p class="mb-0">{{ sezione.descrizione }}</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3">
+                    <img src="{{ sezione.logo_sezione.url }}" style="max-width: 100%">
+                    <p>Discussioni Totali: {{ sezione.discussione_set.count }}</p>
+                </div>
+                <div class="col-lg-9">
+                    <p>Ultime discussioni</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endfor %}
 
 {% endblock content %}
