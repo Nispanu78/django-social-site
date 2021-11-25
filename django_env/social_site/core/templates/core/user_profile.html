@@ -3,7 +3,7 @@
 {% block head_title %}{{ block.super }} - {{ user }}{% endblock head_title %}
 
 {% block content %}
-<div class="row">
+<div class="row mt-3">
     <div class="col-4">
         <div class="card my-2">
             <div class="card-header">
@@ -24,11 +24,18 @@
                 <h4>Discussioni</h4>
             </div>
             <div class="card-body">
-                {% for discussione in user.discussioni.all %}
+                {% for discussione in discussioni_utente %}
                     <a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a>
                     <p class="text-muted">{{ discussione.sezione_appartenenza }}</p>
+                {% empty %}
+                    {% if request.user != user %}
+                        <p>{{ user }} non ha creato alcuna discussione! </p>
+                    {% else %}
+                        <p>Non hai creato alcuna discussione, inizia subito!</p>
+                    {% endif %}
                 {% endfor %}
             </div>
+            <div class="card-footer"></div>
         </div>
     </div>
 
