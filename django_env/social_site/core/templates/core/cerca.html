@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} - Cerca nel Forum{% endblock head_title %}
+
+{% block content %}
+    <h1 class="mt-3">Risultati della Ricerca</h1>
+    {{ posts }}
+    {{ discussioni }}
+    {{ users }}
+
+
+{% endblock content %}
