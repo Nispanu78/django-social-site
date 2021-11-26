@@ -4,9 +4,45 @@
 
 {% block content %}
     <h1 class="mt-3">Risultati della Ricerca</h1>
-    {{ posts }}
-    {{ discussioni }}
-    {{ users }}
-
+    <hr>
+    <div class="row mt-3">
+        <div class="col-4">
+            <h5><strong>Posts</strong></h5>
+            <hr>
+            {% if posts %}
+                {% for post in posts %}
+                    <p>{{ post.contenuto|truncatewords:"10" }}</p>
+                    <p class="mb-0">by <a href="{% url 'user_profile' username=post.autore_post.username %}">@{{ post.autore_post.username }}</a></p>
+                    <p>in <a href="{{ post.discussione.get_absolute_url }}">{{ post.discussione.titolo }}</a></p>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>---</p>
+            {% endif %}
+        </div>
+        <div class="col-4">
+            <h5><strong>Discussioni</strong></h5>
+            <hr>
+            {% if discussioni %}
+                {% for discussione in discussioni %}
+                    <p><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></p>
+                {% endfor %}
+            {% else %}
+                <p>---</p>
+            {% endif %}
+        </div>
+        <div class="col-4">
+            <h5><strong>Utenti</strong></h5>
+            <hr>
+            {% if users %}
+                {% for utente in users %}
+                    <p> <a href="{% url 'user_profile' username=utente.username %}">@{{ utente }}</a></p>
+                {% endfor %}
+            {% else %}
+                <p>---</p>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock content %}
+

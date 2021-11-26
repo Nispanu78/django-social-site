@@ -26,13 +26,14 @@ def user_profile_view(request, username):
 
 def cerca(request):
     if "q" in request.GET:
-        querystring = request.GET.get('q')
+        querystring = request.GET.get("q")
+        print(querystring)
         if len(querystring) == 0:
             return redirect("/cerca/")
         discussioni = Discussione.objects.filter(titolo__icontains=querystring)
         posts = Post.objects.filter(contenuto__icontains=querystring)
         users = User.objects.filter(username__icontains=querystring)
-        context = {'discussioni':discussioni, 'posts':posts, 'users':users}
+        context = {"discussioni": discussioni, "posts": posts, "users": users}
         return render(request, 'core/cerca.html', context)
     else:
         return render(request, 'core/cerca.html')
