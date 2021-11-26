@@ -12,10 +12,26 @@
 
     <div class="card-body">
         <a class="btn btn-sm btn-info" href="{% url 'crea_discussione' pk=sezione.pk %}">Crea Discussione</a>
-        {% for discussione in discussioni %}
-            <p><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></p>
-            <p>{{ discussione.autore_discussione }}</p>
-        {% endfor%}
+        <table class="table mt-3">
+            <thead>
+                <tr class="row">
+                    <th class="col-lg-6">Titolo</th>
+                    <th class="col-lg-2">Autore</th>
+                    <th class="col-lg-2">Post</th>
+                    <th class="col-lg-2">Ultimo post</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    {% for discussione in discussioni %}
+                        <td class="col-lg-6"><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></td>
+                        <td class="col-lg-2"><a href="{ % url 'user_profile' username=discussione.autore_discussione.username % }">{{ discussione.autore_discussione }}</a></td>
+                        <td class="col-lg-2">{{ discussione.post_set.count }}</td>
+                        <td class="col-lg-2">{{ discussione.post_set.last.data_creazione }}</td>
+                    {% endfor%}
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
