@@ -31,13 +31,27 @@
                     <p class="my-0">{{ post.contenuto|linebreaks }}</p>
                 </div>
             </div>
-            <h3></h3>
-            <h3></h3>
-            <h3></h3>
-            <!-- <h6 class="card-text"> {{ sezione.descrizione }} </h6> -->
         </div>
     </div>
     {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts_discussione.has_previous %}
+                <a href="?pagina=1">&laquo; prima</a>
+                <a href="?pagina={{ posts_discussione.previous_page_number }}">precedente</a>
+            {% endif %}
+
+            <span class="current">
+                Pagina {{ posts_discussione.number }} di {{ posts_discussione.paginator.num_pages }}.
+            </span>
+
+            {% if posts_discussione.has_next %}
+                <a href="?pagina={{ posts_discussione.next_page_number }}">successiva</a>
+                <a href="?pagina={{ posts_discussione.paginator.num_pages }}">ultima &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
     {% if request.user.is_authenticated %}
         {% include 'forum/form_risposta.html' %}

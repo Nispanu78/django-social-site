@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 
 from .forms import DiscussioneModelForm, PostModelForm
-
 from .models import Discussione, Post, Sezione
 from .mixins import StaffMixing
 
@@ -47,8 +47,11 @@ def crea_discussione(request, pk):
 def visualizza_discussione(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     posts_discussione = Post.objects.filter(discussione=discussione)
+    paginator = Paginator(posts_discussione, 5)
+    page = request.GET.get("pagina")
+    posts = paginator.get_page(page)
     form_risposta = PostModelForm()
-    context = {'discussione': discussione, 'posts_discussione': posts_discussione, "form_risposta": form_risposta}
+    context = {'discussione': discussione, 'posts_discussione': posts, "form_risposta": form_risposta}
     return render(request, "forum/singola_discussione.html", context)
 
 @login_required
