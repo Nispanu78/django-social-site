@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+import math
 from django.contrib.auth.models import User
 
 
@@ -42,6 +43,10 @@ class Discussione(models.Model):
     def get_absolute_url(self):
         return reverse("visualizza_discussione", kwargs={"pk": self.pk})
 
+    def get_n_pages(self):
+        posts_discussione = self.post_set.count()
+        n_pagine = math.ceil(posts_discussione / 5)
+        return n_pagine
 
     class Meta:
         verbose_name = "Discussione"
