@@ -6,6 +6,9 @@ urlpatterns = [
     path('sezione/<int:pk>/', views.visualizza_sezione, name='sezione_view'),
     path('sezione/<int:pk>/crea-discussione/', views.crea_discussione, name='crea_discussione'),
     path('discussione/<int:pk>/', views.visualizza_discussione, name='visualizza_discussione'),
-    path('sezione/<int:pk>/crea-discussione/rispondi/', views.aggiungi_risposta, name='rispondi_a_discussione'),
+    # path('sezione/<int:pk>/crea-discussione/rispondi/', views.aggiungi_risposta, name='rispondi_a_discussione'),
+    # path('sezione/<int:pk>/crea-discussione/elimina-post/', views.CancellaPost.as_view(), name='cancella_post'),
+    path("discussione/<int:pk>/rispondi/", views.aggiungi_risposta, name="rispondi_a_discussione"),
+    path("discussione/<int:id>/elimina-post/<int:pk>/", views.CancellaPost.as_view(), name="cancella_post"),
 
 ]
